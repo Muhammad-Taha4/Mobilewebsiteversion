@@ -269,8 +269,7 @@ export default function NestedMegaMenu() {
 
     const mainCategories = Object.keys(categoryData);
     const navBrands = [
-        "Apple", "Samsung", "Motorola", "Google", "Other Parts", "Game Console",
-        "Accessories", "Tools & Supplies", "Refurbishing", "Board Components", "Pre-Owned Devices"
+        "Apple", "Samsung", "Motorola", "Google", "Other Parts", "Accessories", "Tools & Supplies"
     ];
 
     // Safety checks for 3-Level Data rendering
@@ -386,7 +385,7 @@ export default function NestedMegaMenu() {
                                                         </h5>
                                                         <div className="flex flex-col gap-1 mt-3">
                                                             {groupItems.map(item => (
-                                                                <Link href="/shop" key={item.name} onClick={() => { setActiveMenu(false); setSelectedCategory(null); setSearchQuery(""); }} className="flex items-center justify-between text-slate-600 hover:text-[#0B4182] hover:bg-slate-50 p-1.5 rounded transition-colors group">
+                                                                <Link href={`/brand/${encodeURIComponent(selectedCategory.toLowerCase())}`} key={item.name} onClick={() => { setActiveMenu(false); setSelectedCategory(null); setSearchQuery(""); }} className="flex items-center justify-between text-slate-600 hover:text-[#0B4182] hover:bg-slate-50 p-1.5 rounded transition-colors group">
                                                                     <span className="text-sm font-medium truncate pr-2 group-hover:translate-x-1 transition-transform">{item.name}</span>
                                                                     {item.badge && (
                                                                         <span className="text-[10px] font-extrabold bg-[#0B4182] text-white px-1.5 py-0.5 rounded uppercase tracking-widest shrink-0">
@@ -443,7 +442,15 @@ export default function NestedMegaMenu() {
                 {navBrands.map(brand => (
                     <button
                         key={brand}
-                        onClick={() => handleCategoryClick(brand)}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (activeMenu && selectedCategory === brand) {
+                                setActiveMenu(false);
+                                setSelectedCategory(null);
+                            } else {
+                                handleCategoryClick(brand);
+                            }
+                        }}
                         className={`hover:text-red-600 transition-colors whitespace-nowrap outline-none flex items-center gap-1.5 shrink-0 ${selectedCategory === brand && activeMenu ? 'text-red-600' : ''}`}
                     >
                         {brand}

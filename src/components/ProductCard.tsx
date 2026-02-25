@@ -25,7 +25,7 @@ export default function ProductCard({
     };
 
     return (
-        <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light bg-surface-light shadow-sm transition-all duration-500 ease-in-out hover:-translate-y-2 hover:shadow-2xl hover:border-primary/30">
+        <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border-light bg-surface-light shadow-sm transition-all duration-300 ease-in-out hover:scale-[1.01] hover:shadow-lg hover:border-primary/30">
             <div className="relative aspect-[4/3] w-full bg-[#f1f5f9] p-6 overflow-hidden">
                 {badge && (
                     <div className="absolute right-3 top-3 z-10">

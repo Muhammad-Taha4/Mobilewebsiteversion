@@ -1,8 +1,24 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function CartPage() {
+    const [isEmpty, setIsEmpty] = useState(false);
+
+    if (isEmpty) {
+        return (
+            <main className="flex-1 w-full bg-slate-50 min-h-[70vh] flex flex-col items-center justify-center p-8 animate-in fade-in duration-500">
+                <span className="material-symbols-outlined text-slate-300 text-[100px] mb-6">shopping_cart</span>
+                <h1 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">Your cart is empty</h1>
+                <p className="text-slate-500 max-w-sm text-center mb-8">Looks like you haven't added any professional repair parts to your cart yet.</p>
+                <Link href="/shop" className="bg-[#0B4182] hover:bg-[#082f5e] text-white font-bold py-4 px-8 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    Continue Shopping
+                </Link>
+            </main>
+        );
+    }
+
     return (
         <main className="flex-1 w-full bg-slate-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 py-12">
@@ -10,7 +26,7 @@ export default function CartPage() {
                 <div className="flex flex-col gap-1 mb-8">
                     <h1 className="text-slate-900 text-3xl font-bold tracking-tight">Your Shopping Cart</h1>
                     <p className="text-slate-500 text-sm">
-                        Order #12345 • 3 Items • <Link className="text-[#0B4182] hover:underline" href="/products">Continue Shopping</Link>
+                        Order #12345 • 3 Items • <Link className="text-[#0B4182] hover:underline" href="/shop">Continue Shopping</Link>
                     </p>
                 </div>
 
@@ -200,11 +216,11 @@ export default function CartPage() {
 
                         {/* Back / Clear actions */}
                         <div className="flex justify-between items-center mt-2">
-                            <button className="flex items-center gap-2 text-slate-500 hover:text-[#0B4182] text-sm font-medium transition-colors">
+                            <Link href="/shop" className="flex items-center gap-2 text-slate-500 hover:text-[#0B4182] text-sm font-medium transition-colors">
                                 <span className="material-symbols-outlined text-[20px]">arrow_back</span>
                                 Back to Shop
-                            </button>
-                            <button className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors flex items-center gap-1">
+                            </Link>
+                            <button onClick={() => setIsEmpty(true)} className="text-red-500 hover:text-red-700 text-sm font-medium transition-colors flex items-center gap-1">
                                 <span className="material-symbols-outlined text-[18px]">remove_shopping_cart</span>
                                 Clear Cart
                             </button>
@@ -251,10 +267,10 @@ export default function CartPage() {
                                 </div>
 
                                 {/* Checkout Button */}
-                                <button className="w-full mt-6 bg-[#0B4182] hover:bg-[#082f5e] text-white font-bold py-4 px-6 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group">
+                                <Link href="/checkout" className="w-full mt-6 bg-[#0B4182] hover:bg-[#082f5e] text-white font-bold py-4 px-6 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group">
                                     <span>Proceed to Secure Checkout</span>
                                     <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                                </button>
+                                </Link>
 
                                 <div className="text-center mt-3">
                                     <p className="text-xs text-slate-400">

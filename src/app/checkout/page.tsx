@@ -1,5 +1,7 @@
 "use client";
 
+import Link from 'next/link';
+
 export default function CheckoutPage() {
     return (
         <main className="flex-grow max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background-light min-h-screen animate-in fade-in duration-500">
@@ -354,9 +356,9 @@ export default function CheckoutPage() {
                                 {/* 
                                     Explicit mapping of Complete Purchase button to iShine Navy Blue (#0B4182).
                                 */}
-                                <button className="w-full flex items-center justify-center rounded-xl bg-[#0B4182] hover:bg-[#072a54] text-white px-6 py-4 text-base font-bold shadow-lg shadow-[#0B4182]/20 hover:shadow-xl hover:shadow-[#0B4182]/30 hover:-translate-y-0.5 transition-all duration-300 focus:ring-4 focus:ring-offset-2 focus:ring-[#0B4182]/50 active:scale-[0.98]">
+                                <Link href="/order-success" className="w-full flex items-center justify-center rounded-xl bg-[#0B4182] hover:bg-[#072a54] text-white px-6 py-4 text-base font-bold shadow-lg shadow-[#0B4182]/20 hover:shadow-xl hover:shadow-[#0B4182]/30 hover:-translate-y-0.5 transition-all duration-300 focus:ring-4 focus:ring-offset-2 focus:ring-[#0B4182]/50 active:scale-[0.98]">
                                     Complete Purchase
-                                </button>
+                                </Link>
 
                                 {/* Trust & Conversion Boost */}
                                 <div className="mt-6">

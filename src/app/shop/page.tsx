@@ -5,13 +5,16 @@ import ProductCard from "@/components/ProductCard";
 
 export default function ShopPage() {
     const [isFiltering, setIsFiltering] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     useEffect(() => {
         // Shimmer effect lock during filter evaluation
         const timer = setTimeout(() => setIsFiltering(false), 1200);
         return () => clearTimeout(timer);
     }, []);
-    const products = [
+
+    const baseProducts = [
         {
             title: "iPhone 14 Pro Max OLED Assembly Replacement",
             brand: "Apple - iPhone 14 Pro Max",
@@ -71,8 +74,32 @@ export default function ShopPage() {
             stockStatus: "In Stock",
             stockCount: "500+ units",
             imageSrc: "/assets/6092C-Professional-Precision-70-in-1-Multifunction-Screwdriver-Set-in-lahore.webp"
-        },
+        }
     ];
+
+    // Expand mock data to 12 items to test pagination
+    const products = [...baseProducts, ...baseProducts.map(p => ({
+        ...p,
+        title: `${p.title} (Variant B)`,
+        price: `$${(parseFloat(p.price.replace('$', '')) + 10).toFixed(2)}`
+    }))];
+
+    const totalPages = Math.ceil(products.length / itemsPerPage);
+    const paginatedProducts = products.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(prev => prev + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handlePrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(prev => prev - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     return (
         <div className="bg-background-light min-h-screen">
@@ -94,7 +121,7 @@ export default function ShopPage() {
                         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                             <div>
                                 <h1 className="text-3xl font-extrabold tracking-tight text-text-main">LCD Screens &amp; Digitizers</h1>
-                                <p className="mt-2 text-sm text-text-secondary">Showing <span className="font-bold text-text-main">124 results</span> for <span className="font-bold text-text-main">iPhone</span> in <span className="font-bold text-text-main">LCD Screens</span>.</p>
+                                <p className="mt-2 text-sm text-text-secondary">Showing <span className="font-bold text-text-main">{products.length} results</span> for <span className="font-bold text-text-main">iPhone</span> in <span className="font-bold text-text-main">LCD Screens</span>.</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="relative">
@@ -167,7 +194,7 @@ export default function ShopPage() {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                            {products.map((m, i) => (
+                            {paginatedProducts.map((m, i) => (
                                 <ProductCard
                                     key={i}
                                     title={m.title}
@@ -185,12 +212,20 @@ export default function ShopPage() {
 
                     {/* Pagination */}
                     <div className="mt-10 flex items-center justify-between border-t border-border-light pt-6">
-                        <p className="text-sm text-text-secondary">Showing <span className="font-medium text-text-main">1</span> to <span className="font-medium text-text-main">6</span> of <span className="font-medium text-text-main">124</span> results</p>
+                        <p className="text-sm text-text-secondary">Showing <span className="font-medium text-text-main">{(currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-medium text-text-main">{Math.min(currentPage * itemsPerPage, products.length)}</span> of <span className="font-medium text-text-main">{products.length}</span> results</p>
                         <div className="flex gap-2">
-                            <button className="inline-flex items-center rounded-lg border border-border-light bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-gray-50 disabled:opacity-50 transition">
+                            <button
+                                onClick={handlePrev}
+                                disabled={currentPage === 1}
+                                className="inline-flex items-center rounded-lg border border-border-light bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-gray-50 disabled:opacity-50 transition"
+                            >
                                 Previous
                             </button>
-                            <button className="inline-flex items-center rounded-lg border border-border-light bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-gray-50 transition">
+                            <button
+                                onClick={handleNext}
+                                disabled={currentPage === totalPages}
+                                className="inline-flex items-center rounded-lg border border-border-light bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-gray-50 disabled:opacity-50 transition"
+                            >
                                 Next
                             </button>
                         </div>

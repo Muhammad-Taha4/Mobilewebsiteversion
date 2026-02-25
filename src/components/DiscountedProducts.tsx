@@ -39,7 +39,7 @@ export default function DiscountedProducts() {
                 {/* Right Product Cards Column 1 */}
                 <div className="space-y-4">
                     {products.slice(0, 2).map((p, i) => (
-                        <div key={i} className="border border-slate-100 rounded-md p-3 flex gap-4 hover:shadow-md hover:-translate-y-1 hover:border-brand/30 transition-shadow transition-transform duration-300 group">
+                        <div key={i} className="border border-slate-100 rounded-md p-3 flex gap-4 hover:shadow-lg hover:scale-[1.01] hover:border-brand/30 transition-shadow transition-transform duration-300 group">
                             <div className="relative w-24 h-24 bg-white shrink-0">
                                 <span className="absolute top-0 left-0 bg-brand text-[10px] text-white px-1.5 py-0.5 rounded-md font-bold shadow-sm z-10">25% Off</span>
                                 <img src={p.img} alt={p.title} className="w-full h-full object-contain" />
@@ -69,7 +69,7 @@ export default function DiscountedProducts() {
                 {/* Right Product Cards Column 2 */}
                 <div className="space-y-4">
                     {products.slice(2, 4).map((p, i) => (
-                        <div key={i} className="border border-slate-100 rounded-md p-3 flex gap-4 hover:shadow-md hover:-translate-y-1 hover:border-brand/30 transition-shadow transition-transform duration-300 group">
+                        <div key={i} className="border border-slate-100 rounded-md p-3 flex gap-4 hover:shadow-lg hover:scale-[1.01] hover:border-brand/30 transition-shadow transition-transform duration-300 group">
                             <div className="relative w-24 h-24 bg-white shrink-0">
                                 <span className="absolute top-0 left-0 bg-brand text-[10px] text-white px-1.5 py-0.5 rounded-md font-bold shadow-sm z-10">25% Off</span>
                                 <img src={p.img} alt={`iShine Wireless ${p.title}`} className="w-full h-full object-contain" loading="lazy" />
